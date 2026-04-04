@@ -1,0 +1,67 @@
+# [Project Name]
+
+[ONE sentence: what this project is and its primary purpose]
+
+## Commands
+
+```bash
+# Development
+[exact dev command with flags]
+
+# Test (single file)
+[exact single-test command — this is the most-used command]
+
+# Test (full suite)
+[exact full-suite command with flags]
+
+# Lint
+[exact lint command]
+
+# Type check
+[exact type-check command]
+
+# Build
+[exact build command]
+
+# Format
+[exact format command]
+```
+
+## Stack
+
+[ONLY non-obvious choices — skip what's obvious from code]
+- [Tool]: [Version] — [WHY this choice, if non-standard]
+
+## Boundaries
+
+### Always
+- Run [test command] before considering work complete
+- Run [lint command] after modifying files
+- [Project-specific required actions]
+
+### Ask First
+- Creating new database migrations
+- Modifying files in [sensitive directories]
+- Committing or creating PRs
+- [Project-specific approval-needed actions]
+
+### Never
+- NEVER commit secrets, .env files, or API keys
+- NEVER push directly to main/master
+- NEVER modify [protected files/directories]
+- [Project-specific absolute prohibitions]
+
+## Landmines
+
+- `path/to/dangerous/file`: [What's dangerous and WHY — be specific]
+- `path/to/tricky/area`: [What breaks if you change it wrong]
+
+## Patterns
+
+```[lang]
+// CORRECT: [pattern name]
+[actual code from the repo showing the right way]
+
+// WRONG: [anti-pattern name]
+[what NOT to do — show why it fails]
+```

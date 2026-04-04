@@ -1,0 +1,41 @@
+name: Learn from PR Reviews
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  update-context:
+    if: contains(github.event.review.body, '@claude-learn')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: Extract and apply learning
+        run: |
+          # Extract the learning from the review body
+          LEARNING=$(echo "${{ github.event.review.body }}" | sed 's/@claude-learn//' | xargs)
+
+          # Append to AGENTS.md under Landmines section
+          if [ -n "$LEARNING" ]; then
+            echo "- $LEARNING" >> AGENTS.md
+            echo "Learning added: $LEARNING"
+          fi
+
+      - name: Create PR with learning
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "context: add learning from PR review #${{ github.event.pull_request.number }}"
+          title: "Context: Learning from PR #${{ github.event.pull_request.number }}"
+          body: |
+            Auto-generated from PR review.
+
+            **Learning:** ${{ github.event.review.body }}
+            **Source PR:** #${{ github.event.pull_request.number }}
+            **Reviewer:** @${{ github.event.review.user.login }}
+          branch: context-learn-${{ github.event.pull_request.number }}
+          labels: context-engineering
