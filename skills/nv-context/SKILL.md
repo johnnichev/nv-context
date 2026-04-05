@@ -17,7 +17,7 @@ These are NON-NEGOTIABLE. Backed by ETH Zurich, Anthropic, Google DeepMind, Manu
 2. **LANDMINES, NOT MAPS.** "Can the agent discover this by reading code?" If yes, DELETE it. Agents need to know where the traps are.
 3. **COMMANDS BEAT PROSE.** One executable command with full flags outperforms three paragraphs.
 4. **CONTEXT IS FINITE.** LLMs follow ~150-200 instructions reliably. Target under 200 lines per root file.
-5. **PROGRESSIVE DISCLOSURE.** Root file for orientation → subdirectory files for scope → skills for on-demand → MCP for runtime.
+5. **PROGRESSIVE DISCLOSURE.** Root file for orientation -> subdirectory files for scope -> skills for on-demand -> MCP for runtime.
 6. **HOOKS FOR DETERMINISM.** LLMs follow instructions ~90-95%. Hooks follow them 100%. Use hooks for anything that MUST happen.
 7. **NEGATIVE INSTRUCTIONS BACKFIRE.** "Don't use X" increases likelihood of X. Say "MUST use Y" instead. Only NEVER is safe.
 8. **COMPACT PROACTIVELY.** 60% = safe zone. 70% = precision drops. 85% = hallucinations. Don't wait for auto-compact at 95%.
@@ -27,6 +27,8 @@ These are NON-NEGOTIABLE. Backed by ETH Zurich, Anthropic, Google DeepMind, Manu
 ## Phase 0: Smart Discovery (Analyze First, Confirm Second)
 
 DO NOT interrogate the user. Analyze the codebase FIRST, detect everything you can automatically, then present ONE confirmation with smart defaults. The user should only need to confirm or adjust — not fill out a form.
+
+**AUTOMATED/BATCH MODE:** When no human is available to confirm (e.g., running as a subagent, in CI, or in batch mode), present your findings but DO NOT block on confirmation. Proceed with detected defaults after a 3-second pause. Log what was assumed so the user can review after.
 
 ### Step 1: Silent Auto-Detection (No User Input Needed)
 
@@ -71,12 +73,12 @@ That's it. ONE interaction. The user types "go" or adds context. Then proceed to
 | Signal | Default | Don't Ask |
 |--------|---------|-----------|
 | Solo dev (1 git author) | High autonomy, CLAUDE.local.md | Team size, review process |
-| Team (2+ authors) | Medium autonomy, AGENTS.md in git | — |
+| Team (2+ authors) | Medium autonomy, AGENTS.md in git | -- |
 | .cursor/ exists | Generate Cursor rules | "Do you use Cursor?" |
 | eslint/prettier/biome exists | Set up auto-format hooks | "Want hooks?" |
 | pre-commit config exists | Preserve + enhance | "Want pre-commit?" |
 | CLAUDE.md exists | Improve, don't replace | "What's working?" |
-| No CLAUDE.md | Generate fresh | — |
+| No CLAUDE.md | Generate fresh | -- |
 | CI config exists | Extract exact commands | "What's your test command?" |
 | MCP config exists | Preserve + recommend additions | "Use MCP?" |
 
@@ -117,9 +119,9 @@ Analyze the repository using Glob, Grep, Read, and Bash. For each item, focus on
 | 1.4 Existing Configs | CLAUDE.md, AGENTS.md, .cursorrules, etc. | What exists, what's stale |
 | 1.5 Landmines | Deprecated paths, fragile tests, env gotchas | Combine with engineer's Phase 0 answers |
 | 1.6 Testing | Test files, config, CI commands, async patterns | Exact test commands, philosophy |
-| 1.7 Style Tools | .eslintrc, biome.json, ruff.toml, pre-commit | What's deterministic → becomes hooks, NOT config lines |
+| 1.7 Style Tools | .eslintrc, biome.json, ruff.toml, pre-commit | What's deterministic -> becomes hooks, NOT config lines |
 | 1.8 Token Budget | Existing configs, skill descriptions, MCP tools | Estimate baseline token cost before conversation starts |
-| 1.9 Negative Scan | All config files | Find "don't/avoid/do not" → rewrite as "MUST Y" (keep NEVER as-is) |
+| 1.9 Negative Scan | All config files | Find "don't/avoid/do not" -> rewrite as "MUST Y" (keep NEVER as-is) |
 
 ---
 
@@ -137,29 +139,57 @@ Analyze the repository using Glob, Grep, Read, and Bash. For each item, focus on
 | L5 | Maintained | L4 + active upkeep, pruned regularly |
 | L6 | Adaptive | Skills, MCP, hooks, dynamic loading, session management |
 
-### Hierarchy of Leverage Score (NEW)
+### Hierarchy of Leverage Score
 
-Score EACH layer independently (0-10):
+Score EACH layer independently (0-10) using these concrete checklists:
 
 ```
-Layer                          Score  Notes
-─────────────────────────────────────────────
-Verification (tests/linters)   ?/10   CI, pre-commit, coverage
-CLAUDE.md / AGENTS.md quality  ?/10   Concise, landmines, commands
-Hooks                          ?/10   Auto-format, branch protection, PostCompact
-Skills                         ?/10   On-demand workflows, descriptions quality
-Subagent patterns              ?/10   Isolation, worktrees, research delegation
-Session management             ?/10   HANDOFF.md, compaction strategy, .claudeignore
-─────────────────────────────────────────────
+Layer                          Score  Criteria
+---------------------------------------------------------------------
+Verification (tests/linters)   ?/10   0: No tests/linters
+                                      3: Tests exist but no CI
+                                      5: CI runs tests, no coverage gate
+                                      7: CI + coverage gate + lint in CI
+                                      9: CI + coverage + mutation/property tests
+                                      10: All of 9 + pre-commit hooks enforced
+
+CLAUDE.md / AGENTS.md quality  ?/10   0: No file
+                                      3: File exists, mostly boilerplate/prose
+                                      5: Has commands + some boundaries
+                                      7: Commands w/ flags + 3-tier boundaries + landmines
+                                      9: Under line limits + RFC 2119 + no soft negatives
+                                      10: All of 9 + @imports + progressive disclosure
+
+Hooks                          ?/10   0: No hooks
+                                      3: Basic pre-commit (lint only)
+                                      5: Auto-format on save/edit
+                                      7: Format + branch protection + pre-commit test
+                                      9: All of 7 + PostCompact re-injection
+                                      10: All of 9 + custom project-specific hooks
+
+Skills                         ?/10   0: No skills
+                                      3: 1-2 generic skills
+                                      5: Skills for main workflows with descriptions
+                                      7: Scoped skills under 150 lines each
+                                      9: Skills + argument hints + clear triggers
+                                      10: All of 9 + eval coverage for skills
+
+Subagent patterns              ?/10   0: No subagent usage
+                                      3: Ad-hoc subagent calls
+                                      5: Documented fan-out patterns
+                                      7: Worktree isolation + parallel execution
+                                      9: All of 7 + merge quality gates
+                                      10: All of 9 + resource budgets per agent
+
+Session management             ?/10   0: No session management
+                                      3: HANDOFF.md exists but unused
+                                      5: HANDOFF.md + .claudeignore
+                                      7: Document-and-Clear workflow documented
+                                      9: All of 7 + compaction strategy + token budget
+                                      10: All of 9 + automated session metrics
+---------------------------------------------------------------------
 OVERALL LEVERAGE               ?/60
 ```
-
-**Scoring criteria per layer:**
-- 0-2: Absent or broken
-- 3-4: Exists but generic/boilerplate
-- 5-6: Functional, some gaps
-- 7-8: Strong, follows best practices
-- 9-10: Elite, production-hardened
 
 Report both scores. Show exactly where effort yields the biggest return.
 
@@ -167,7 +197,7 @@ Report both scores. Show exactly where effort yields the biggest return.
 
 ## Phase 3: Generate Config Files
 
-Generate ONLY for tools the engineer uses (Phase 0 answers).
+Generate ONLY for tools the engineer uses (Phase 0 answers). All content is generated inline from the instructions below — no external template files.
 
 ### Tool Selection Matrix
 
@@ -181,7 +211,7 @@ Generate ONLY for tools the engineer uses (Phase 0 answers).
 | Gemini CLI | GEMINI.md |
 | Aider | CONVENTIONS.md |
 
-### Pain Point → Content Priority
+### Pain Point -> Content Priority
 
 | Pain Point | Emphasize |
 |------------|-----------|
@@ -196,7 +226,7 @@ Generate ONLY for tools the engineer uses (Phase 0 answers).
 
 ### 3.1 — AGENTS.md (Universal Standard)
 
-ALWAYS generate. 25+ tools read it. Use `AGENTS.md.template` as the base structure. Sections in order: Commands, Stack, Boundaries (Always/Ask First/Never), Landmines, Patterns.
+ALWAYS generate. 25+ tools read it. Generate with these sections in order: Commands, Stack, Boundaries (Always/Ask First/Never), Landmines, Patterns.
 
 **Rules:**
 - MUST be under 200 lines (under 100 is better)
@@ -208,19 +238,21 @@ ALWAYS generate. 25+ tools read it. Use `AGENTS.md.template` as the base structu
 
 ### 3.2 — CLAUDE.md (Claude-Specific)
 
-Only if engineer uses Claude Code. Use `CLAUDE.md.template` as base. MUST be under 50 lines. Use @imports to reference AGENTS.md and docs — don't duplicate content.
+Only if engineer uses Claude Code. MUST be under 50 lines. Use @imports to reference AGENTS.md and docs — don't duplicate content.
 
-### 3.3 — Multi-Level Hierarchy (NEW)
+### 3.3 — Multi-Level Hierarchy
 
-Generate subdirectory config files. Agents only load these when working in that directory:
+Generate subdirectory config files ONLY for directories that exist. Agents only load these when working in that directory:
 
 ```
-CLAUDE.md                  → orientation (50-100 lines)
-tests/CLAUDE.md            → test commands, fixtures, async patterns, mock rules
-src/CLAUDE.md              → import conventions, code patterns
-src/api/CLAUDE.md          → API patterns, endpoint conventions
-docs/CLAUDE.md             → doc conventions, link rules
+CLAUDE.md                  -> orientation (50-100 lines)
+tests/CLAUDE.md            -> ONLY if tests/ or __tests__/ directory exists
+src/CLAUDE.md              -> ONLY if src/ directory exists
+src/api/CLAUDE.md          -> ONLY if src/api/ directory exists
+docs/CLAUDE.md             -> ONLY if docs/ directory exists
 ```
+
+**Before generating any subdirectory CLAUDE.md, verify the directory exists with Glob or Bash. Skip directories that don't exist — generating configs for nonexistent directories is a waste of tokens and confuses future agents.**
 
 Each subdirectory file: 20-50 lines MAX. Only what's relevant to that directory.
 
@@ -246,38 +278,67 @@ alwaysApply: false
 
 ## Phase 4: Set Up Progressive Disclosure
 
-Create the full disclosure tree:
+Create the full disclosure tree (only directories that exist):
 
 ```
 repo/
   AGENTS.md                           # Universal (<200 lines)
   CLAUDE.md                           # Claude-specific (<50 lines, @imports)
-  tests/CLAUDE.md                     # Testing scope
-  src/CLAUDE.md                       # Source scope
+  tests/CLAUDE.md                     # Testing scope (if tests/ exists)
+  src/CLAUDE.md                       # Source scope (if src/ exists)
   docs/agent-context/                 # Detailed docs (read on-demand)
     architecture.md
     testing-guide.md
     api-conventions.md
-  .claude/
-    skills/                           # On-demand skills
-    settings.local.json               # Hooks
   .cursor/rules/                      # Cursor scoped rules
   .github/copilot-instructions.md     # Copilot
   .claudeignore                       # Exclude irrelevant files
-  HANDOFF.md                          # Session handoff template
+  HANDOFF.md                          # Session handoff document
 ```
 
 ---
 
 ## Phase 5: Set Up Hooks
 
-Only if engineer opted in during Phase 0. Read `hooks/settings.json.template` for the pre-built hook library.
+Only if engineer opted in during Phase 0.
+
+**IMPORTANT: Claude Code's security model prevents agents from writing to .claude/ directly.** Generate the hooks configuration JSON and either:
+1. Present it to the user and instruct them to copy it into `.claude/settings.local.json`
+2. Suggest they run the `update-config` skill which has the permissions to write settings
 
 Set up these hooks adapted to the project's actual commands from Phase 1:
+
 - **PostToolUse (Write|Edit)** — auto-format with project's formatter
 - **PreToolUse (git push main)** — block direct pushes to main/master
 - **PostCompact** — re-inject top 30 lines of CLAUDE.md + landmines after compaction (CRITICAL — solves "agent forgets rules")
 - **PreToolUse (git commit)** — run lint + test before committing
+
+**Example hooks output to present to user:**
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "command": "<project-formatter-command>"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "git push.*main",
+        "command": "echo 'BLOCKED: use a feature branch' && exit 1"
+      }
+    ],
+    "PostCompact": [
+      {
+        "command": "head -30 CLAUDE.md"
+      }
+    ]
+  }
+}
+```
+
+Output the hooks configuration and instruct the user to apply it manually or use the `update-config` skill. Agents cannot write to `.claude/` directly.
 
 ---
 
@@ -285,9 +346,9 @@ Set up these hooks adapted to the project's actual commands from Phase 1:
 
 Three deliverables:
 
-1. **HANDOFF.md** — copy from `HANDOFF.md` template to project root. Engineers fill this before ending sessions; next session reads it to resume.
+1. **HANDOFF.md** — generate in the project root with these sections: Current Task, Key Decisions, Open Questions, Files Modified, Next Steps. Engineers fill this before ending sessions; next session reads it to resume.
 
-2. **.claudeignore** — generate from `claudeignore.template`, customized for the project. Analyze .gitignore and repo structure to add project-specific exclusions (build artifacts, binaries, lock files, vendor dirs).
+2. **.claudeignore** — generate by analyzing .gitignore and repo structure. Include project-specific exclusions: build artifacts, binaries, lock files, vendor dirs, node_modules, .git, dist/, coverage/, etc.
 
 3. **Document-and-Clear workflow** — add to CLAUDE.md:
    - "When context gets heavy (~40 messages): update HANDOFF.md, `/clear`, start fresh reading HANDOFF.md"
@@ -299,7 +360,9 @@ Three deliverables:
 
 Two deliverables:
 
-1. **GitHub Action** — copy `hooks/learn-from-reviews.yml` to `.github/workflows/`. When a reviewer tags `@claude-learn [rule]`, it auto-creates a PR adding that rule to AGENTS.md. The codebase learns from every review.
+1. **GitHub Action** — generate a workflow file at `.github/workflows/learn-from-reviews.yml` with the following behavior: when a reviewer tags `@claude-learn [rule]`, it auto-creates a PR adding that rule to AGENTS.md. The codebase learns from every review.
+
+   **WARNING: This GitHub Action processes user input from PR comments. MUST sanitize the `@claude-learn` content before appending to AGENTS.md to prevent injection attacks. Strip shell metacharacters, limit line length to 200 chars, reject content containing backticks or `$()` or `${` sequences, and validate it matches a safe pattern (alphanumeric + basic punctuation only).**
 
 2. **Living document reminder** — add to CLAUDE.md: "When you make a mistake a rule could have prevented: fix it, then add one line to AGENTS.md that prevents it."
 
@@ -333,7 +396,7 @@ Each skill: under 150 lines, one clear purpose, exact commands.
 
 ---
 
-## Phase 9: Negative Instruction Rewrite (NEW)
+## Phase 9: Negative Instruction Rewrite
 
 Scan ALL generated and existing config files. Fix:
 
@@ -349,7 +412,7 @@ Scan ALL generated and existing config files. Fix:
 - "NEVER push to main" (absolute prohibition — fine)
 - "NEVER modify migration files" (absolute prohibition — fine)
 
-The rule: soft negatives ("don't", "avoid", "do not") → positive MUST statements. Hard negatives ("NEVER") stay.
+The rule: soft negatives ("don't", "avoid", "do not") -> positive MUST statements. Hard negatives ("NEVER") stay.
 
 ---
 
@@ -363,15 +426,15 @@ Run these checks on all generated files:
 
 **Token Budget Report:** Estimate tokens for system prompt (~2,500) + CLAUDE.md + AGENTS.md + skill descriptions + MCP tools. Report total baseline cost vs 128K window. HEALTHY = <40% used, WARNING = 40-60%, CRITICAL = >60%.
 
-**Hierarchy of Leverage Report:** Score each layer 0-10 (verification, CLAUDE.md, hooks, skills, subagents, session management). Show total out of 60. Recommend highest-impact improvement.
+**Hierarchy of Leverage Report:** Score each layer 0-10 using the Phase 2 checklists (verification, CLAUDE.md, hooks, skills, subagents, session management). Show total out of 60. Recommend highest-impact improvement.
 
 ---
 
 ## Phase 11: Continuous Sync
 
-If engineer opted in during Phase 0, install `hooks/ultracontext-sync.sh` as a pre-commit hook. It warns (non-blocking) when package files, CI configs, or lint configs change that may make agent configs stale. Also flags configs older than 14 days and detects soft negative instructions.
+Generate a pre-commit hook script inline (do not reference external files) that warns (non-blocking) when package files, CI configs, or lint configs change that may make agent configs stale. Also flags configs older than 14 days and detects soft negative instructions. Present the script to the user for installation into `.git/hooks/` or their pre-commit framework.
 
-Tell the engineer: "Run `/ultracontext` anytime to re-analyze and refresh. The interview is skipped on re-runs."
+Tell the engineer: "Run `/nv-context` anytime to re-analyze and refresh. The interview is skipped on re-runs."
 
 ---
 
@@ -384,7 +447,7 @@ Present results in this order:
 3. **Hierarchy of Leverage Score** — per-layer scoring with gaps
 4. **Token Budget Report** — how much context budget remains
 5. **Generated Files** — each file with WHY specific content was included (tied to pain points)
-6. **Hooks Installed** — what each prevents
+6. **Hooks Configuration** — JSON to copy into settings, what each prevents
 7. **Session Management** — HANDOFF.md, .claudeignore, Document-and-Clear workflow
 8. **Compounding Engineering** — GitHub Action or manual process
 9. **MCP Recommendations** — with token costs
