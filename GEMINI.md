@@ -2,11 +2,8 @@
 
 ## Available Skills
 
-- `nv-context` — Context engineering setup for any repository. Generates AGENTS.md, CLAUDE.md, GEMINI.md, Cursor rules, Copilot instructions, hooks, and session management.
-
-## Usage
-
-Run `/nv-context` in your repository to start.
+- `nv-context` — Context engineering setup for any repository.
+- `nv-design` — Professional web design using Vibe Design methodology.
 
 ## Tool Mapping (Gemini CLI)
 

@@ -1,19 +1,14 @@
 # nv: skills
 
-Context engineering and developer tools for AI coding agents. Works with Claude Code, Cursor, GitHub Copilot, Windsurf, Aider, and Gemini CLI.
+Developer tools and design skills for AI coding agents. Works with Claude Code, Cursor, GitHub Copilot, Windsurf, Aider, and Gemini CLI.
 
 ## Skills
 
-- `nv-context` — Interviews the engineer, analyzes the codebase, generates multi-level config hierarchy, hooks, session management, and token budgets. Based on 200+ research sources.
+- `nv-context` — Context engineering setup. Interviews the engineer, analyzes codebase, generates configs, hooks, session management, token budgets. 200+ research sources.
+- `nv-design` — Professional web design using Vibe Design methodology. Design system extraction, recombination, landing page building, site modernization, image prompts.
 
 ## Installation
 
 ```bash
 npx skills add johnnichev/nv-skills -g -y
-```
-
-## Usage
-
-```
-/nv-context
 ```

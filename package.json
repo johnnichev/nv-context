@@ -1,7 +1,7 @@
 {
   "name": "nv-skills",
-  "version": "2.2.0",
-  "description": "nv: skills — context engineering, auditing, and developer tools for engineers who ship with AI agents.",
+  "version": "2.3.0",
+  "description": "nv: skills — context engineering, professional web design, and developer tools for engineers who ship with AI agents.",
   "type": "module",
   "keywords": [
     "context-engineering",

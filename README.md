@@ -1,8 +1,25 @@
 # nv: skills
 
-**Context engineering for engineers who ship.**
+**Skills for engineers who ship.**
 
-`nv-context` is a skill that analyzes your repository, interviews you about your workflow, and generates the complete context engineering infrastructure — so every AI coding agent works at maximum effectiveness.
+A collection of AI agent skills by [johnnichev](https://github.com/johnnichev). One install, all tools.
+
+```bash
+npx skills add johnnichev/nv-skills -g -y
+```
+
+## Skills
+
+| Skill | Command | What it does |
+|-------|---------|-------------|
+| **nv:context** | `/nv-context` | Context engineering setup — interviews you, analyzes codebase, generates AGENTS.md/CLAUDE.md, hooks, session management, token budgets. 200+ research sources. |
+| **nv:design** | `/nv-design` | Professional web design — extract design systems from reference sites, recombine them, build landing pages, modernize old sites, generate image prompts. Vibe Design methodology. |
+
+---
+
+## nv:context
+
+`/nv-context` analyzes your repository, interviews you about your workflow, and generates the complete context engineering infrastructure — so every AI coding agent works at maximum effectiveness.
 
 > "Most agent failures are not model failures — they are context failures."
 > — Philipp Schmid, Google DeepMind

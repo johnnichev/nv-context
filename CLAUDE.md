@@ -5,6 +5,7 @@ A collection of skills for engineers who ship with AI agents. By johnnichev.
 ## Available Skills
 
 - `/nv-context` — Set up state-of-the-art context engineering for any repository. Interviews you, analyzes your codebase, generates configs, hooks, session management, and token budgets.
+- `/nv-design` — Vibe Design methodology for professional web design. Extract design systems from reference sites, recombine them, build landing pages section-by-section, modernize old sites, and generate image prompts.
 
 ## Install
 
@@ -12,8 +13,4 @@ A collection of skills for engineers who ship with AI agents. By johnnichev.
 npx skills add johnnichev/nv-skills -g -y
 ```
 
-## The nv: Namespace
-
-All skills from this repo use the `nv-` prefix:
-- `nv-context` — context engineering setup (available now)
-- More coming: audit, deploy, release, test workflows
+Installs ALL nv: skills across Claude Code, Cursor, Copilot, Gemini CLI, Codex, and 9+ tools.
