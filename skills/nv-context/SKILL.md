@@ -474,9 +474,16 @@ For each file, connect to the analysis:
 > "The 'Never' boundary includes `migrations/` because it's a landmine."
 > "Split SESSION.md because it was a 17K token bomb — 80% historical build log."
 
-ALWAYS end with:
+ALWAYS end with the leverage score, then ask:
 
-> "These files are a STARTING POINT. The first pass is never the final pass — after fixing bugs or changing the codebase, review your configs and prune what's stale. Stale landmines in PostCompact hooks waste tokens. Configs are living documents."
+> "Current score: **X/60**. Want to push further? I can [specific next action that would gain the most points]. This would bring you to ~Y/60."
+
+This "push further" prompt is critical. Production data shows:
+- selectools went from 49/60 to 58/60 (+9) because the engineer asked "what can we improve further?"
+- The second pass found deeper restructuring opportunities the first pass left as "good enough"
+- Sheriff stayed at 42/60 because the incremental improvements were the right call for a solo dev
+
+Present the option — don't stop at "good enough" unless the engineer decides to. The best results come from 2-3 passes, not one.
 
 ---
 
