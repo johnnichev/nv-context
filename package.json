@@ -1,0 +1,24 @@
+{
+  "name": "ultracontext",
+  "version": "2.1.0",
+  "description": "Context engineering for engineers who ship. Analyzes your repo and sets up AGENTS.md, CLAUDE.md, hooks, session management, and token budgets.",
+  "type": "module",
+  "keywords": [
+    "context-engineering",
+    "ai-agents",
+    "claude-code",
+    "cursor",
+    "copilot",
+    "agents-md",
+    "claude-md",
+    "developer-tools",
+    "agentic-coding"
+  ],
+  "author": "NichevLabs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnnichev/UltraContext"
+  },
+  "homepage": "https://github.com/johnnichev/UltraContext"
+}

@@ -1,0 +1,27 @@
+# Claude-Specific Instructions
+
+See @AGENTS.md for project conventions and commands.
+
+## Additional Context
+
+@docs/[architecture-doc].md
+@docs/[testing-guide].md
+@[other-relevant-docs]
+
+## Session Management
+
+When context gets heavy (after ~40 messages or complex exploration):
+1. Update HANDOFF.md with current progress
+2. `/clear`
+3. Start fresh: "Read HANDOFF.md and continue where I left off"
+
+## Compounding Engineering
+
+When you make a mistake a rule could have prevented:
+1. Fix the mistake
+2. Add a one-line rule to AGENTS.md that prevents it
+3. The codebase gets smarter over time
+
+## Claude-Specific Rules
+
+[Only rules that don't belong in AGENTS.md — Claude-specific behaviors]

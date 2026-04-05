@@ -1,0 +1,68 @@
+# UltraContext .claudeignore template
+# Prevents agents from wasting context on irrelevant files
+# Customize for your project — remove lines that don't apply
+
+# Build artifacts
+node_modules/
+dist/
+build/
+.next/
+out/
+__pycache__/
+*.pyc
+*.pyo
+target/
+bin/
+obj/
+
+# Dependencies
+vendor/
+.venv/
+venv/
+env/
+
+# Lock files (large, low signal)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+poetry.lock
+Pipfile.lock
+Cargo.lock
+Gemfile.lock
+
+# Coverage & test artifacts
+coverage/
+.nyc_output/
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Binary & media files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.svg
+*.woff
+*.woff2
+*.ttf
+*.eot
+*.mp4
+*.mp3
+*.pdf
+
+# IDE
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Generated docs
+site/
+_site/

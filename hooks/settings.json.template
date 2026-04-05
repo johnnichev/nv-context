@@ -1,0 +1,23 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "command": "[FORMAT_COMMAND] $FILE_PATH",
+        "description": "Auto-format after file changes"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git push.*main|git push.*master)",
+        "command": "echo 'BLOCKED: Never push directly to main/master. Create a PR.' && exit 1",
+        "description": "Block direct pushes to main/master"
+      },
+      {
+        "matcher": "Bash(git commit)",
+        "command": "[LINT_COMMAND] && [TEST_COMMAND]",
+        "description": "Quality gate before committing"
+      }
+    ]
+  }
+}

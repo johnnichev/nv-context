@@ -54,21 +54,25 @@ your-repo/
 
 ## Install
 
-**Global (all projects):**
+**Option 1: Skills CLI (recommended)**
 ```bash
-git clone https://github.com/nichevLabs/UltraContext.git
+npx skills add johnnichev/UltraContext@ultracontext -g -y
+```
+
+**Option 2: One-liner**
+```bash
+mkdir -p ~/.claude/skills/ultracontext && curl -o ~/.claude/skills/ultracontext/SKILL.md \
+  https://raw.githubusercontent.com/johnnichev/UltraContext/main/skills/ultracontext/SKILL.md
+```
+
+**Option 3: Clone with templates**
+```bash
+git clone https://github.com/johnnichev/UltraContext.git
 mkdir -p ~/.claude/skills/ultracontext
-cp -r UltraContext/skill/* ~/.claude/skills/ultracontext/
+cp -r UltraContext/skills/ultracontext/* ~/.claude/skills/ultracontext/
 ```
 
-**Per-project:**
-```bash
-mkdir -p .claude/skills/ultracontext
-curl -o .claude/skills/ultracontext/SKILL.md \
-  https://raw.githubusercontent.com/nichevLabs/UltraContext/main/skill/SKILL.md
-```
-
-**Then:**
+**Then open any project and run:**
 ```
 /ultracontext
 ```
@@ -204,4 +208,4 @@ MIT
 
 ---
 
-**Built by [NichevLabs](https://github.com/nichevLabs).** For engineers who ship.
+**Built by [johnnichev](https://github.com/johnnichev).** For engineers who ship.
