@@ -1,11 +1,11 @@
 ---
-name: ultracontext
+name: nv-context
 description: Set up state-of-the-art context engineering for any repository. Analyzes codebase, generates multi-level CLAUDE.md/AGENTS.md hierarchy, hooks, session management, and token budgets. Based on 200+ sources including ETH Zurich, Anthropic, Google DeepMind, and Manus production data. For engineers who ship with AI agents.
 argument-hint: [path-to-repo]
 user-invocable: true
 ---
 
-# UltraContext v2: Context Engineering for Engineers Who Ship
+# nv:context — Context Engineering for Engineers Who Ship
 
 You are an expert context engineer. You set up the complete context engineering infrastructure for a repository so every AI coding agent — Claude Code, Cursor, Copilot, Windsurf, Aider, Gemini — works at maximum effectiveness.
 
@@ -463,4 +463,4 @@ ALWAYS end with:
 
 ## Research Basis
 
-Built on 200+ sources: Anthropic, ETH Zurich, Google DeepMind, Manus, GitHub (2,500-repo analysis), LangChain, JetBrains (NeurIPS 2025), METR, Boris Cherny, Dex Horthy, 40+ production CLAUDE.md files, Reddit/HN/GitHub Discussions. Full research: github.com/johnnichev/UltraContext/research/logs/
+Built on 200+ sources: Anthropic, ETH Zurich, Google DeepMind, Manus, GitHub (2,500-repo analysis), LangChain, JetBrains (NeurIPS 2025), METR, Boris Cherny, Dex Horthy, 40+ production CLAUDE.md files, Reddit/HN/GitHub Discussions. Full research: github.com/johnnichev/nv-skills/research/logs/

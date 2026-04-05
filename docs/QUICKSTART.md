@@ -1,31 +1,31 @@
 # Quickstart
 
-Get UltraContext running in 2 minutes.
+Get nv:context running in 2 minutes.
 
 ## Install
 
 ### Option 1: Global (all projects)
 
 ```bash
-git clone https://github.com/nichevsLabs/UltraContext.git
-mkdir -p ~/.claude/skills/ultracontext
-cp UltraContext/skill/SKILL.md ~/.claude/skills/ultracontext/SKILL.md
+git clone https://github.com/johnnichev/nv-skills.git
+mkdir -p ~/.claude/skills/nv-context
+cp nv-skills/skills/nv-context/SKILL.md ~/.claude/skills/nv-context/SKILL.md
 ```
 
 ### Option 2: Per-project
 
 ```bash
-mkdir -p .claude/skills/ultracontext
-curl -o .claude/skills/ultracontext/SKILL.md \
-  https://raw.githubusercontent.com/nichevsLabs/UltraContext/main/skill/SKILL.md
+mkdir -p .claude/skills/nv-context
+curl -o .claude/skills/nv-context/SKILL.md \
+  https://raw.githubusercontent.com/johnnichev/nv-skills/main/skill/SKILL.md
 ```
 
 ### Option 3: With templates (recommended)
 
 ```bash
-git clone https://github.com/nichevsLabs/UltraContext.git
-mkdir -p ~/.claude/skills/ultracontext
-cp -r UltraContext/skill/* ~/.claude/skills/ultracontext/
+git clone https://github.com/johnnichev/nv-skills.git
+mkdir -p ~/.claude/skills/nv-context
+cp -r nv-skills/skills/nv-context/* ~/.claude/skills/nv-context/
 ```
 
 ## Use
@@ -33,7 +33,7 @@ cp -r UltraContext/skill/* ~/.claude/skills/ultracontext/
 Open Claude Code in your repo and run:
 
 ```
-/ultracontext
+/nv-context
 ```
 
 The skill will:
@@ -77,4 +77,4 @@ Your codebase gets smarter with every iteration.
 
 ## Verify
 
-Run `/ultracontext` again anytime to re-score your setup and find gaps.
+Run `/nv-context` again anytime to re-score your setup and find gaps.

@@ -1,18 +1,15 @@
-# UltraContext — Gemini CLI Support
-
-This plugin provides context engineering setup for any repository.
+# nv: skills — Gemini CLI Support
 
 ## Available Skills
 
-- `ultracontext` — Analyzes your codebase and generates optimal agent configuration files (AGENTS.md, CLAUDE.md, GEMINI.md, Cursor rules, Copilot instructions) with hooks, session management, and token budgets.
+- `nv-context` — Context engineering setup for any repository. Generates AGENTS.md, CLAUDE.md, GEMINI.md, Cursor rules, Copilot instructions, hooks, and session management.
 
 ## Usage
 
-Run `/ultracontext` in your repository to start the setup process.
+Run `/nv-context` in your repository to start.
 
 ## Tool Mapping (Gemini CLI)
 
-When executing UltraContext skills in Gemini CLI:
 - `Read` → `read_file`
 - `Write` → `write_file`
 - `Edit` → `edit_file`

@@ -1,7 +1,7 @@
 {
-  "name": "ultracontext",
-  "version": "2.1.0",
-  "description": "Context engineering for engineers who ship. Analyzes your repo and sets up AGENTS.md, CLAUDE.md, hooks, session management, and token budgets.",
+  "name": "nv-skills",
+  "version": "2.2.0",
+  "description": "nv: skills — context engineering, auditing, and developer tools for engineers who ship with AI agents.",
   "type": "module",
   "keywords": [
     "context-engineering",
@@ -12,13 +12,14 @@
     "agents-md",
     "claude-md",
     "developer-tools",
-    "agentic-coding"
+    "agentic-coding",
+    "nv-skills"
   ],
-  "author": "NichevLabs",
+  "author": "johnnichev",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/johnnichev/UltraContext"
+    "url": "https://github.com/johnnichev/nv-skills"
   },
-  "homepage": "https://github.com/johnnichev/UltraContext"
+  "homepage": "https://github.com/johnnichev/nv-skills"
 }

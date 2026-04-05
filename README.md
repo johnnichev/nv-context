@@ -1,8 +1,8 @@
-# UltraContext
+# nv: skills
 
 **Context engineering for engineers who ship.**
 
-A Claude Code skill that analyzes your repository, interviews you about your workflow, and generates the complete context engineering infrastructure — so every AI coding agent works at maximum effectiveness.
+`nv-context` is a skill that analyzes your repository, interviews you about your workflow, and generates the complete context engineering infrastructure — so every AI coding agent works at maximum effectiveness.
 
 > "Most agent failures are not model failures — they are context failures."
 > — Philipp Schmid, Google DeepMind
@@ -25,7 +25,7 @@ Your AI agent is smart. But it keeps running the wrong test command, touching fi
 
 ## The Solution
 
-UltraContext applies 200+ research sources to set up your repo correctly. In under 3 minutes:
+nv:context applies 200+ research sources to set up your repo correctly. In under 3 minutes:
 
 1. **Interviews you** about your tools, pain points, landmines, and workflow preferences
 2. **Analyzes your codebase** for non-obvious patterns, exact commands, and architectural gotchas
@@ -56,25 +56,25 @@ your-repo/
 
 **Option 1: Skills CLI (recommended)**
 ```bash
-npx skills add johnnichev/UltraContext@ultracontext -g -y
+npx skills add johnnichev/nv-skills -g -y
 ```
 
 **Option 2: One-liner**
 ```bash
-mkdir -p ~/.claude/skills/ultracontext && curl -o ~/.claude/skills/ultracontext/SKILL.md \
-  https://raw.githubusercontent.com/johnnichev/UltraContext/main/skills/ultracontext/SKILL.md
+mkdir -p ~/.claude/skills/nv-context && curl -o ~/.claude/skills/nv-context/SKILL.md \
+  https://raw.githubusercontent.com/johnnichev/nv-skills/main/skills/nv-context/SKILL.md
 ```
 
 **Option 3: Clone with templates**
 ```bash
-git clone https://github.com/johnnichev/UltraContext.git
-mkdir -p ~/.claude/skills/ultracontext
-cp -r UltraContext/skills/ultracontext/* ~/.claude/skills/ultracontext/
+git clone https://github.com/johnnichev/nv-skills.git
+mkdir -p ~/.claude/skills/nv-context
+cp -r nv:context/skills/nv-context/* ~/.claude/skills/nv-context/
 ```
 
 **Then open any project and run:**
 ```
-/ultracontext
+/nv-context
 ```
 
 ## Key Features
@@ -118,11 +118,11 @@ Status: HEALTHY
 
 ### PostCompact Context Re-injection
 
-The #1 complaint: "my agent forgets rules mid-session." UltraContext installs a hook that automatically re-injects critical context after compaction fires. Your landmines and boundaries survive context compression.
+The #1 complaint: "my agent forgets rules mid-session." nv:context installs a hook that automatically re-injects critical context after compaction fires. Your landmines and boundaries survive context compression.
 
 ### Negative Instruction Detection
 
-Research proves "don't use X" makes agents MORE likely to use X. UltraContext scans your configs and rewrites:
+Research proves "don't use X" makes agents MORE likely to use X. nv:context scans your configs and rewrites:
 
 ```
 BEFORE: "don't use moment.js"
@@ -151,7 +151,7 @@ Agents only load what's relevant to where they're working.
 
 ## The 8 Laws
 
-Built into every file UltraContext generates:
+Built into every file nv:context generates:
 
 1. **Less is more** — every line must earn its place
 2. **Landmines, not maps** — document what agents can't discover
@@ -164,7 +164,7 @@ Built into every file UltraContext generates:
 
 ## Research
 
-UltraContext is built on the most comprehensive context engineering research compilation that exists:
+nv:context is built on the most comprehensive context engineering research compilation that exists:
 
 **12 research documents, 471KB, 200+ sources:**
 
@@ -196,7 +196,7 @@ Key sources: Anthropic, ETH Zurich, Google DeepMind, Manus, LangChain, GitHub (2
 
 ## Contributing
 
-UltraContext improves when practitioners share what works. Open an issue or PR with:
+nv:context improves when practitioners share what works. Open an issue or PR with:
 - Patterns that improved your agent performance
 - Anti-patterns you discovered the hard way
 - Research we should include

@@ -1,4 +1,4 @@
-# The UltraContext Manifesto
+# The nv:context Manifesto
 
 ## The Problem
 
@@ -62,7 +62,7 @@ Most people optimize from the bottom up. The best engineers start at the top.
 
 ## The Standard
 
-UltraContext is the implementation of these principles. It analyzes your repository, interviews you about your landmines and workflows, and generates the complete context engineering infrastructure — config files, hooks, session management, token budgets — so every AI agent that touches your code works at maximum effectiveness.
+nv:context is the implementation of these principles. It analyzes your repository, interviews you about your landmines and workflows, and generates the complete context engineering infrastructure — config files, hooks, session management, token budgets — so every AI agent that touches your code works at maximum effectiveness.
 
 It's not a prompt template. It's not a config generator. It's a context engineering system built on 200+ research sources from the people who build and study AI agents for a living.
 
