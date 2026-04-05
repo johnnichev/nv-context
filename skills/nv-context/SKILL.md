@@ -28,7 +28,7 @@ These are NON-NEGOTIABLE. Backed by ETH Zurich, Anthropic, Google DeepMind, Manu
 
 DO NOT interrogate the user. Analyze the codebase FIRST, detect everything you can automatically, then present ONE confirmation with smart defaults. The user should only need to confirm or adjust — not fill out a form.
 
-**AUTOMATED/BATCH MODE:** When no human is available to confirm (e.g., running as a subagent, in CI, or in batch mode), present your findings but DO NOT block on confirmation. Proceed with detected defaults after a 3-second pause. Log what was assumed so the user can review after.
+**AUTOMATED/BATCH MODE:** When no human is available to confirm (e.g., running as a subagent, in CI, or in batch mode), present your findings but DO NOT block on confirmation. Proceed with detected defaults after a 3-second pause. Write assumptions to `ULTRACONTEXT_LOG.md` in the project root so the user can review what was auto-detected and auto-decided.
 
 ### Step 1: Silent Auto-Detection (No User Input Needed)
 
@@ -340,6 +340,8 @@ Set up these hooks adapted to the project's actual commands from Phase 1:
 
 Output the hooks configuration and instruct the user to apply it manually or use the `update-config` skill. Agents cannot write to `.claude/` directly.
 
+**Batch mode persistence:** In batch mode, write the hooks config to a file `hooks-config.json` in the project root so it persists after the session ends. Include a note: "Run `mkdir -p .claude && cp hooks-config.json .claude/settings.local.json` to activate hooks."
+
 ---
 
 ## Phase 6: Set Up Session Management
@@ -364,6 +366,8 @@ Two deliverables:
 
    **WARNING: This GitHub Action processes user input from PR comments. MUST sanitize the `@claude-learn` content before appending to AGENTS.md to prevent injection attacks. Strip shell metacharacters, limit line length to 200 chars, reject content containing backticks or `$()` or `${` sequences, and validate it matches a safe pattern (alphanumeric + basic punctuation only).**
 
+   **Script injection prevention:** Use an intermediate environment variable instead of inline `${{ }}` in `run:` blocks to prevent script injection. Example: define `env: REVIEW_BODY: ${{ github.event.review.body }}` on the step, then reference `$REVIEW_BODY` in the shell script. NEVER interpolate `${{ }}` directly inside `run:` blocks.
+
 2. **Living document reminder** — add to CLAUDE.md: "When you make a mistake a rule could have prevented: fix it, then add one line to AGENTS.md that prevents it."
 
 ---
@@ -381,6 +385,8 @@ Two deliverables:
 | Team conventions | codebase-context (PatrickSys) | ~2K tokens |
 
 **WARN if total MCP token cost exceeds 15K** — that's eating into the task budget.
+
+**Skip MCP recommendations for projects with fewer than 50 files or no external dependencies.** Small projects don't benefit from MCP overhead.
 
 ### Skill Recommendations
 
@@ -432,7 +438,9 @@ Run these checks on all generated files:
 
 ## Phase 11: Continuous Sync
 
-Generate a pre-commit hook script inline (do not reference external files) that warns (non-blocking) when package files, CI configs, or lint configs change that may make agent configs stale. Also flags configs older than 14 days and detects soft negative instructions. Present the script to the user for installation into `.git/hooks/` or their pre-commit framework.
+Generate a pre-commit hook script inline (do not reference external files) that warns (non-blocking) when package files, CI configs, or lint configs change that may make agent configs stale. Also flags configs older than 14 days and detects soft negative instructions.
+
+**Persist the script:** Write the sync script to `.githooks/ultracontext-sync.sh` in the project directory (not just in memory). Add a note: "Run `chmod +x .githooks/ultracontext-sync.sh && git config core.hooksPath .githooks` to activate."
 
 Tell the engineer: "Run `/nv-context` anytime to re-analyze and refresh. The interview is skipped on re-runs."
 
