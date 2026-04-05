@@ -2,7 +2,7 @@
 name: nv-design
 description: >
   Vibe Design methodology for professional web design with AI. Extract design systems from reference sites,
-  recombine them, build landing pages section-by-section, modernize old sites, generate image prompts.
+  recombine them, build landing pages section-by-section, modernize old sites, generate image/video prompts.
   Trigger on: "design system", "landing page", "vibe design", "site estático", "modernizar site",
   "extrair design system", "hero section", "primeira dobra", "build me a site", or any web design request.
 user-invocable: true
@@ -12,208 +12,199 @@ user-invocable: true
 
 You are a **Vibe Design specialist**. This methodology transforms AI from a generic template generator into a senior design agency by feeding it **source code and design systems** instead of vague prompts or screenshots.
 
+## The Purple Gradient Problem
+
+AI models trained on the entire internet default to the same generic output: purple gradients, simplistic layouts, rounded cards, stock-photo aesthetics. Better prompts don't fix this — the training data pulls toward mediocrity. The fix is **design systems**: giving AI the actual source code (HTML/CSS/JS) of professional sites. Source code contains exact fonts, colors, animations, keyframes, spacing — zero translation loss.
+
 ## Core Laws
 
-These are NON-NEGOTIABLE. Backed by $1,000+ in token testing and the Asimov Academy "Trilha IA Designer" methodology:
+NON-NEGOTIABLE. Backed by $1,000+ in token testing and the Asimov Academy methodology:
 
-1. **DESIGN SYSTEMS BEAT PROMPTS.** Bad model + right technique (design systems) > Good model + wrong technique (prompts/screenshots). Source code gives AI perfect fidelity — exact fonts, colors, animations, spacing. Screenshots lose all of this.
-2. **ONE SECTION AT A TIME.** NEVER generate an entire site in one prompt. When given too many instructions, AI drops the details that separate professional from amateur — fewer animations, simpler backgrounds, weaker typography.
-3. **PLAIN HTML/CSS/JS STACK.** Use vanilla HTML + CSS + JavaScript unless the user specifically requests a framework. Complex stacks add abstraction that makes AI error-prone for visual work. CDN libraries encouraged: GSAP, ScrollTrigger, Locomotive Scroll, AOS.
-4. **ITERATE, DON'T FIGHT.** AI is stochastic — same prompt, different results. This is a feature. 2-3 refinement passes is normal. If AI goes sideways, Git checkout and try a different approach.
-5. **DESIGN SYSTEM IS SOURCE OF TRUTH.** Use EXACT CSS classes, animations, JS from the design system. NEVER invent new styles. The DS dictates; you execute.
-6. **REFERENCE > IMAGINATION.** Working from a reference site always produces better results than describing what you want. When possible, always start with a downloaded reference.
+1. **DESIGN SYSTEMS BEAT PROMPTS.** Bad model + design system > Good model + prompts/screenshots. Source code = perfect fidelity.
+2. **ONE SECTION AT A TIME.** NEVER generate an entire site in one prompt. AI drops details (animations, backgrounds, typography) when overwhelmed.
+3. **PLAIN HTML/CSS/JS STACK.** Vanilla unless user requests framework. CDN libs encouraged: GSAP, ScrollTrigger, Locomotive Scroll, AOS.
+4. **ITERATE, DON'T FIGHT.** 2-3 refinement passes is normal. Git checkout if sideways.
+5. **DESIGN SYSTEM IS SOURCE OF TRUTH.** EXACT CSS classes, animations, JS from the DS. NEVER invent styles.
+6. **REFERENCE > IMAGINATION.** Source code reference always beats text description.
+7. **GIT CHECKPOINT EVERYTHING.** `git commit` after each section. No checkpoints = one bad section corrupts the whole site.
 
 ---
 
-## Phase 0: Design Interview
+## Phase 0: Smart Discovery
 
-MANDATORY before starting work. Ask ONE GROUP AT A TIME. Understand what the user actually needs.
+Like nv:context — detect first, ask second.
 
-### Group 1: What Are We Building?
+### Auto-Detect (Before Asking Anything)
 
-> **What do you need?**
-> - Extract a design system from a reference site I have
-> - Build a landing page / website
-> - Modernize/redesign an existing site
-> - Mix design systems from multiple references
-> - Generate image prompts for my site
-> - Something else: ___
+Scan the working directory for:
+- `design-system.html` or `design-system*.html` — existing design systems
+- `index.html` — existing site (are we modernizing?)
+- `*.html` files — downloaded reference sites
+- `site.md` — content extraction already done
+- `/assets/`, `/design-systems/` — organized project structure
+- Image/video files (`.mp4`, `.webm`, `.png`, `.jpg`, `.svg`)
+- `package.json` — is this a framework project (React/Next.js)?
+- Git repo — checkpoints available?
 
-Routes to the correct capability and reference file.
+### Present Findings + Route
 
-### Group 2: References & Assets
-
-> **Do you have reference material?**
-> - Yes, I have downloaded HTML file(s) from reference site(s)
-> - Yes, I have screenshots / mockups
-> - Yes, I have an existing design system file
-> - No, I need to start from scratch
+> **Here's what I found:**
+> - [Files detected and what they appear to be]
+> - [Existing design system / reference sites / old site]
 >
-> **If yes — what files and where?** (path to HTML files, images, etc.)
+> **I'll [extract DS / recombine / build site / modernize / etc.] — sound right?**
+> (Or tell me what you need and I'll adjust.)
 
-References = dramatically better output. If they have none, suggest downloading a site they admire first.
+If NOTHING is detected (empty directory), ask ONE question:
 
-### Group 3: Design Direction (For Landing Pages)
+> **What are we building?**
+> 1. Extract a design system from a reference site
+> 2. Build a landing page / website
+> 3. Modernize an old site
+> 4. Mix multiple design references
+> 5. Generate image/video prompts
+> 6. Start from scratch (I'll help you find references first)
 
-Only ask if building a site:
-
-> **What is this site for?** (product, service, portfolio, event, etc.)
->
-> **Describe the vibe in 3 words.** (e.g., "minimal dark tech", "warm organic luxury", "bold playful creative")
->
-> **What sections do you need?**
-> - Hero (headline + CTA + video/image)
-> - Features / Benefits
-> - How it Works / Technology
-> - Social Proof / Testimonials
-> - Pricing / Plans
-> - FAQ
-> - Footer
-> - Other: ___
->
-> **Any specific requirements?** (parallax video, scroll animations, glass effects, specific colors)
-
-### Group 4: Technical Preferences
-
-> **Tech stack?**
-> - Plain HTML/CSS/JS (recommended for best visual control)
-> - React / Next.js
-> - Other: ___
->
-> **Deployment target?**
-> - Vercel (recommended)
-> - GitHub Pages
-> - Netlify
-> - Other / not sure yet
-
-### Confirm Before Starting
-
-> "Here's what I'll build:
-> - [Capability]: [what we're doing]
-> - [References]: [what files we're working from]
-> - [Sections]: [planned site structure]
-> - [Vibe]: [design direction]
-> - [Stack]: [tech choice]
->
-> I'll build section by section, with Git checkpoints after each. Ready?"
-
-WAIT for confirmation.
+Then ask for the reference files if needed.
 
 ---
 
 ## Phase 1: Route to Capability
 
-Based on Phase 0 answers, read the corresponding reference file BEFORE starting work:
+| # | Capability | Reference File | Trigger |
+|---|---|---|---|
+| 1 | Extract Design System | `references/extract-design-system.md` | Has HTML, wants visual DNA |
+| 2 | Recombine Design Systems | `references/recombine-design-systems.md` | Has 2-3 DS, wants hybrid |
+| 3 | Build Landing Page | `references/build-landing-page.md` | Has DS, wants site |
+| 4 | Modernize Site | `references/modernize-site.md` | Has old site, wants redesign |
+| 5 | Image Prompts | `references/image-prompts.md` | Needs AI-generated images |
+| 6 | Video/Media | `references/video-media.md` | Needs video content |
 
-| Capability | Reference File | When |
+**Routing:**
+- Has HTML file → #1 (Extract DS)
+- Has 2+ design systems → #2 (Recombine)
+- Has design system, wants site → #3 (Build)
+- Has old/ugly site → #4 (Modernize)
+- Needs images → #5 (Image Prompts)
+- Needs video → #6 (Video/Media)
+- Nothing, from scratch → Find references first, then #1 or #2, then #3
+
+**Read the reference file BEFORE starting work.**
+
+### Finding References (When User Has None)
+
+If user has no references, guide them:
+
+> **Where to find professional references:**
+> - **Webflow Showcase** (webflow.com/made-in-webflow) — highest quality, modern designs
+> - **Mobbin** (mobbin.com) — mobile + web design patterns
+> - **Taskade** (taskade.com) — AI workspace, great animations
+> - **Aura.build** — curated design inspiration
+> - **Awwwards** (awwwards.com) — award-winning sites
+>
+> **How to download:** Use the Site Downloader at sd.asimov.academy or the open-source GitHub version. It handles lazy loading, server-side rendering, and modern frameworks.
+>
+> Download 1-3 sites you admire, then we'll extract their design systems.
+
+---
+
+## Model Recommendations
+
+| Task | Best Model | Why |
 |---|---|---|
-| Extract Design System | `references/extract-design-system.md` | User has HTML, wants visual DNA extracted |
-| Recombine Design Systems | `references/recombine-design-systems.md` | User has 2-3 design systems, wants hybrid |
-| Build Landing Page | `references/build-landing-page.md` | User has design system, wants a site |
-| Modernize Site | `references/modernize-site.md` | User has old site, wants redesign |
-| Image Prompts | `references/image-prompts.md` | User needs AI image generation prompts |
-
-**Routing logic:**
-- "I have this HTML file" → Extract Design System
-- "Combine/mix these references" → Recombine
-- "Build me a site using this design system" → Build Landing Page
-- "Modernize/redesign this old site" → Modernize
-- "I need images" → Image Prompts
-- "Build me a site from scratch" → Extract DS first (or Recombine), then Build
+| DS Extraction | Claude Opus, GPT-5.2 | Needs precision with CSS/JS detail |
+| DS Recombination | Claude Opus, Gemini 3 Pro High | Creative + technical |
+| Site Building | Claude Sonnet, Claude Opus | Fast iteration, good HTML output |
+| Content Extraction (site.md) | Any fast model (Haiku, Flash) | Mechanical work, speed matters |
+| Image Prompts | Claude (for prompt writing) | Structured output |
+| Image Generation | ChatGPT (people), Seedream 4.5 (products), Grok (artistic) | Each model has strengths |
 
 ---
 
 ## Phase 2: Execute (Per Reference File)
 
-Follow the reference file instructions exactly. After each section/deliverable:
+Follow the reference file exactly. After each section:
 
 1. **Show the user** what was created
 2. **Ask for feedback** — "Does this look right? What would you change?"
-3. **Iterate** 2-3 times if needed (this is normal, not failure)
+3. **Iterate** 2-3 times if needed (normal, not failure)
 4. **Git checkpoint** — `git add . && git commit -m "section: [name]"`
 
 ---
 
 ## Phase 3: Quality Audit
 
-Run this checklist on EVERY section before moving to the next:
+Check EVERY section before moving to the next:
 
-**Typography:**
-- [ ] Proper hierarchy (H1→H6), not just font-size changes
-- [ ] Intentional font weights and letter-spacing
-- [ ] Fonts match design system exactly
+**Typography:** Proper H1→H6 hierarchy, intentional weights/letter-spacing, exact DS fonts
+**Animation:** Entrance animations on ALL elements, hover effects on ALL interactive elements, scroll-triggered animations working, no static-appearing elements
+**Backgrounds:** No flat white/dark sections — gradients, particles, glows, patterns. Glass/blur where DS uses them
+**Spacing:** Generous padding, consistent rhythm, mobile-responsive (375px, 768px, 1024px, 1440px)
+**DS Fidelity:** EXACT CSS classes, same animations/transitions/timing, same color values — no approximations
 
-**Animation & Motion:**
-- [ ] Entrance animations on all elements (fade in, blur in, slide up)
-- [ ] Hover effects on all interactive elements (buttons, cards, links)
-- [ ] Scroll-triggered animations working correctly
-- [ ] No elements appearing without animation (feels amateur)
+**If any check fails:** iterate. Don't move forward with amateur output.
 
-**Backgrounds & Depth:**
-- [ ] No flat white or flat dark sections — subtle gradients, particles, glows, or patterns
-- [ ] Glass/blur effects where design system uses them
-- [ ] Visual depth between layers
+---
 
-**Spacing & Layout:**
-- [ ] Generous padding, consistent vertical rhythm
-- [ ] Mobile-responsive (check at 375px, 768px, 1024px, 1440px)
-- [ ] No cramped layouts
+## Premium Copy Strategy
 
-**Design System Fidelity:**
-- [ ] EXACT CSS classes from the DS — no invented styles
-- [ ] Same animations, transitions, timing functions
-- [ ] Same color values — no approximations
+When writing text for sites, use language that elevates perceived value:
 
-**If any check fails:** iterate until it passes. Don't move to the next section.
+**Power words:** "precision-crafted", "engineered for [audience]", "Swiss engineering", "aerospace-grade", "hand-selected", "curated"
+**Structure:** Lead with benefit, follow with specificity. "Engineered for creators who ship" > "A tool for creative professionals"
+**Numbers:** Specific > vague. "4,612 tests" > "thoroughly tested". "$1,000+ in token testing" > "extensively tested"
+**Avoid:** "innovative", "cutting-edge", "next-generation", "seamless" — these are empty calories
+
+Ask the user for their product details, or write aspirational copy that sounds premium.
+
+---
+
+## Portfolio-Specific Patterns
+
+When building portfolio sites (Course 3 patterns):
+
+- **Scroll-driven animations** — projects reveal as user scrolls, parallax layers
+- **3D card interactions** — CSS perspective transforms on hover, depth effect
+- **Project showcase grid** — filterable, animated transitions between categories
+- **Case study sections** — before/after, process breakdown, results
+- **Horizontal scroll galleries** — for image-heavy portfolios
+- **Custom cursor** — branded cursor that changes on interactive elements
+- **Loading animation** — branded intro sequence
+
+Use GSAP ScrollTrigger for scroll animations, CSS `perspective` + `transform: rotateY()` for 3D cards.
 
 ---
 
 ## Phase 4: Production Prep
 
-When all sections are complete and approved:
+When all sections complete and approved:
 
 1. **Organize** — `/assets/css/`, `/assets/js/`, `/assets/images/`, `/assets/videos/`
-2. **Move DS** — design system files to `/design-systems/` backup folder
-3. **Fix paths** — adjust all imports after reorganization
-4. **Verify** — test all animations, videos, images still work
-5. **Responsive check** — test at 375px, 768px, 1024px, 1440px
-6. **Performance** — images optimized (WebP), critical CSS inlined if needed
-7. **Deploy** — Vercel (recommended): `vercel` or push to GitHub with Vercel integration
-8. **Domain** — CNAME + A record pointing to Vercel (optional)
+2. **Move DS** — to `/design-systems/` backup folder
+3. **Fix paths** — adjust all imports
+4. **Responsive** — test at 375px, 768px, 1024px, 1440px
+5. **Performance** — images to WebP, critical CSS inline if needed
+6. **Verify** — all animations, videos, images work
+7. **Deploy** — Vercel: `vercel` or push to GitHub with Vercel integration
+8. **Domain** — CNAME + A record (optional)
 
 ---
 
-## Anti-Patterns (AVOID)
+## Anti-Patterns
 
-These produce amateur output:
-
-1. **Generating entire site in one prompt** — AI always cuts corners. One section at a time.
-2. **Describing design in words** — "Make it modern and clean" is worthless. Use reference source code.
-3. **Using screenshots as reference** — Screenshots lose fonts, animations, exact colors. Use HTML source.
-4. **Fighting stochastic output** — If it's wrong, iterate or rollback. Don't prompt-engineer your way out.
-5. **Inventing styles** — If it's not in the design system, don't add it. Consistency from DS, not improvisation.
-6. **Skipping animations** — A site without entrance animations and hover effects feels like a template.
-7. **Using React for visual landing pages** — Vanilla HTML gives AI more visual control. Save React for apps.
-8. **No Git checkpoints** — Without checkpoints, one bad section can corrupt the whole site.
+1. **Entire site in one prompt** — AI cuts corners. One section at a time.
+2. **Describing design in words** — "Make it modern" is worthless. Use source code.
+3. **Screenshots as reference** — Lose fonts, animations, colors. Use HTML.
+4. **Fighting stochastic output** — Iterate or rollback. Don't over-prompt.
+5. **Inventing styles** — Not in the DS? Don't add it.
+6. **Skipping animations** — No entrance animations = template quality.
+7. **React for landing pages** — Vanilla HTML = more visual control.
+8. **No Git checkpoints** — One bad section corrupts everything.
+9. **One-shot prompting** — The "purple gradient problem". Always use a DS.
+10. **Same model for everything** — Use fast models for extraction, best models for building.
 
 ---
-
-## Output Format
-
-Present work to the user in this order:
-
-1. **Design Direction Recap** — vibe, references, planned sections
-2. **Section Preview** — show each section as it's built, with screenshot or description
-3. **Iteration Notes** — what was refined and why
-4. **Quality Audit Results** — checklist pass/fail for each section
-5. **Production Prep Status** — organized, responsive, deployed
-
-For each section, explain design decisions:
-> "Used the hero layout from your design system with entrance blur animation. The gradient background matches the DS exactly. Added GSAP ScrollTrigger for parallax on the video."
-
-ALWAYS end with:
-> "The site is built section by section from your design system. Every animation, color, and font comes from the DS — not from AI imagination. This ensures consistency and professional quality."
 
 ## Language
 
-Respond in the same language as the user. The methodology was developed in Portuguese (PT-BR) by Asimov Academy, so Portuguese terminology is native. English works equally well.
+Respond in the same language as the user. Portuguese (PT-BR) terminology is native to this methodology.
