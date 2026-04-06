@@ -1,4 +1,4 @@
-# UltraContext Research Synthesis
+# nv:context Research Synthesis
 
 **Date:** 2026-04-04
 **Sources:** 6 parallel research agents covering 150+ sources (articles, YouTube, X/Twitter, tools, theory, agent configs)
@@ -129,7 +129,7 @@ Seven components (Philipp Schmid's framework):
 | L5 | Maintained | L4 + active upkeep, staleness tracking |
 | L6 | Adaptive | Skills, MCP servers, dynamic capability loading |
 
-**Most repos: L1-L2. Goal of UltraContext: L5-L6.**
+**Most repos: L1-L2. Goal of nv:context: L5-L6.**
 
 ---
 
@@ -170,7 +170,7 @@ Seven components (Philipp Schmid's framework):
 
 ---
 
-## What UltraContext Must Do
+## What nv:context Must Do
 
 Based on ALL research, the skill must:
 

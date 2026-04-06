@@ -22,7 +22,7 @@
 13. [Real-World Examples and Repositories](#13-real-world-examples)
 14. [Templates and Frameworks](#14-templates-and-frameworks)
 15. [Cross-Tool Strategy](#15-cross-tool-strategy)
-16. [Key Takeaways for UltraContext](#16-key-takeaways-for-ultracontext)
+16. [Key Takeaways for nv:context](#16-key-takeaways-for-nvcontext)
 
 ---
 
@@ -850,7 +850,7 @@ The industry is converging on "markdown file at project root." AGENTS.md has the
 
 ---
 
-## 16. Key Takeaways for UltraContext
+## 16. Key Takeaways for nv:context
 
 ### The Most Important Findings
 
@@ -874,7 +874,7 @@ The industry is converging on "markdown file at project root." AGENTS.md has the
 
 10. **Iterate based on observed failures.** Don't try to be comprehensive upfront. Start minimal, observe Claude's mistakes, add instructions that prevent those specific mistakes. Treat config like code: review it when things go wrong, prune regularly.
 
-### What UltraContext's Skill Should Generate
+### What nv:context's Skill Should Generate
 
 Based on this research, an ideal agent configuration generator should:
 

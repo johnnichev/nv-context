@@ -1,7 +1,7 @@
 # Context Engineering: Theoretical Foundations and Definitions Research
 
 **Research Date:** 2026-04-04
-**Purpose:** Establish a solid theoretical foundation for the UltraContext skill by deeply researching the definitions, origins, components, techniques, and expert opinions surrounding "context engineering" as applied to AI/LLM agents.
+**Purpose:** Establish a solid theoretical foundation for the nv:context skill by deeply researching the definitions, origins, components, techniques, and expert opinions surrounding "context engineering" as applied to AI/LLM agents.
 
 ---
 
@@ -18,7 +18,7 @@
 9. [Real-World Implementation Case Studies](#9-real-world-implementation-case-studies)
 10. [Repository-Level Context Files](#10-repository-level-context-files)
 11. [Key Frameworks and Mental Models](#11-key-frameworks-and-mental-models)
-12. [Implications for UltraContext](#12-implications-for-ultracontext)
+12. [Implications for nv:context](#12-implications-for-nvcontext)
 13. [Sources](#13-sources)
 
 ---
@@ -550,33 +550,33 @@ Inject > Reason > Distill > Consolidate
 
 ---
 
-## 12. Implications for UltraContext
+## 12. Implications for nv:context
 
 ### Core Takeaways for Building the Skill
 
-1. **Context engineering is NOT just about prompts** -- It is the discipline of designing the entire information environment for an LLM. UltraContext should generate comprehensive context across ALL components (system prompts, tool descriptions, memory structures, retrieval strategies, state management).
+1. **Context engineering is NOT just about prompts** -- It is the discipline of designing the entire information environment for an LLM. nv:context should generate comprehensive context across ALL components (system prompts, tool descriptions, memory structures, retrieval strategies, state management).
 
-2. **Dynamic over static** -- Context must be assembled per-request and per-task, not from fixed templates. UltraContext should produce context that adapts to the specific coding task, project phase, and agent capabilities.
+2. **Dynamic over static** -- Context must be assembled per-request and per-task, not from fixed templates. nv:context should produce context that adapts to the specific coding task, project phase, and agent capabilities.
 
-3. **Quality over quantity** -- A focused 300-token context often outperforms an unfocused 113K-token context. UltraContext must prioritize signal-to-noise ratio, not exhaustive documentation dumps.
+3. **Quality over quantity** -- A focused 300-token context often outperforms an unfocused 113K-token context. nv:context must prioritize signal-to-noise ratio, not exhaustive documentation dumps.
 
-4. **The four operations are universal** -- Write, Select, Compress, Isolate form the backbone of all context engineering. UltraContext should address all four.
+4. **The four operations are universal** -- Write, Select, Compress, Isolate form the backbone of all context engineering. nv:context should address all four.
 
-5. **Repository-level context files are established practice** -- CLAUDE.md, AGENTS.md, and .cursorrules are already widely adopted. UltraContext should generate and optimize these files as a primary output.
+5. **Repository-level context files are established practice** -- CLAUDE.md, AGENTS.md, and .cursorrules are already widely adopted. nv:context should generate and optimize these files as a primary output.
 
-6. **KV-cache awareness matters in production** -- Stable prefixes, append-only context, and deterministic serialization have massive cost implications. UltraContext should generate context structures that cache efficiently.
+6. **KV-cache awareness matters in production** -- Stable prefixes, append-only context, and deterministic serialization have massive cost implications. nv:context should generate context structures that cache efficiently.
 
-7. **Memory architecture is critical** -- Episodic, semantic, and procedural memory types serve different purposes. UltraContext should help structure all three types.
+7. **Memory architecture is critical** -- Episodic, semantic, and procedural memory types serve different purposes. nv:context should help structure all three types.
 
-8. **Tool descriptions need optimization** -- Dynamic tool selection via RAG improves accuracy 3x over dumping all tools. UltraContext should generate optimized tool descriptions.
+8. **Tool descriptions need optimization** -- Dynamic tool selection via RAG improves accuracy 3x over dumping all tools. nv:context should generate optimized tool descriptions.
 
-9. **Context rot is real** -- Long-running agents suffer from context degradation. UltraContext should include strategies for compression, summarization, and memory consolidation.
+9. **Context rot is real** -- Long-running agents suffer from context degradation. nv:context should include strategies for compression, summarization, and memory consolidation.
 
-10. **Multi-agent context isolation** -- Sub-agents work best with focused, isolated contexts. UltraContext should support generating context packages for specialized sub-agents.
+10. **Multi-agent context isolation** -- Sub-agents work best with focused, isolated contexts. nv:context should support generating context packages for specialized sub-agents.
 
 ### The Competitive Landscape
 
-Context engineering is recognized by all major players (Anthropic, Google, OpenAI, LangChain, Redis, JetBrains) as the critical skill for AI agent success. No dominant tool or framework has emerged as the standard for automated context generation. This represents the opportunity for UltraContext.
+Context engineering is recognized by all major players (Anthropic, Google, OpenAI, LangChain, Redis, JetBrains) as the critical skill for AI agent success. No dominant tool or framework has emerged as the standard for automated context generation. This represents the opportunity for nv:context.
 
 ### The Gap to Fill
 
