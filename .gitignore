@@ -1,3 +1,5 @@
 .DS_Store
 docs/MARKETING.md
 .private/
+nv-context-workspace/
+# evals/ — keep these tracked

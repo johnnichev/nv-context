@@ -28,7 +28,7 @@ These are NON-NEGOTIABLE. Backed by ETH Zurich, Anthropic, Google DeepMind, Manu
 
 DO NOT interrogate the user. Analyze the codebase FIRST, detect everything you can automatically, then present ONE confirmation with smart defaults. The user should only need to confirm or adjust — not fill out a form.
 
-**AUTOMATED/BATCH MODE:** When no human is available to confirm (e.g., running as a subagent, in CI, or in batch mode), present your findings but DO NOT block on confirmation. Proceed with detected defaults after a 3-second pause. Write assumptions to `ULTRACONTEXT_LOG.md` in the project root so the user can review what was auto-detected and auto-decided.
+**AUTOMATED/BATCH MODE:** When no human is available to confirm (e.g., running as a subagent, in CI, or in batch mode), present your findings but DO NOT block on confirmation. Proceed with detected defaults after a 3-second pause. Write assumptions to `NV_CONTEXT_LOG.md` in the project root so the user can review what was auto-detected and auto-decided.
 
 ### Step 1: Silent Auto-Detection (No User Input Needed)
 
@@ -446,7 +446,7 @@ Run these checks on all generated files:
 
 Generate a pre-commit hook script inline (do not reference external files) that warns (non-blocking) when package files, CI configs, or lint configs change that may make agent configs stale. Also flags configs older than 14 days and detects soft negative instructions.
 
-**Persist the script:** Write the sync script to `.githooks/ultracontext-sync.sh` in the project directory (not just in memory). Add a note: "Run `chmod +x .githooks/ultracontext-sync.sh && git config core.hooksPath .githooks` to activate."
+**Persist the script:** Write the sync script to `.githooks/nv-context-sync.sh` in the project directory (not just in memory). Add a note: "Run `chmod +x .githooks/nv-context-sync.sh && git config core.hooksPath .githooks` to activate."
 
 Tell the engineer: "Run `/nv-context` anytime to re-analyze and refresh. The interview is skipped on re-runs."
 

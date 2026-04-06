@@ -1,4 +1,4 @@
-# UltraContext .claudeignore template
+# nv-context .claudeignore template
 # Prevents agents from wasting context on irrelevant files
 # Customize for your project — remove lines that don't apply
 

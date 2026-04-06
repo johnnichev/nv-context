@@ -1,0 +1,55 @@
+{
+  "skill_name": "nv-context",
+  "evals": [
+    {
+      "id": 1,
+      "name": "fresh-nodejs",
+      "prompt": "Set up context engineering for this project. Just say 'go' when you present findings.",
+      "expected_output": "AGENTS.md, CLAUDE.md, hooks, session management, leverage score, token budget",
+      "assertions": [
+        {"text": "AGENTS.md exists and is under 200 lines", "type": "file_check"},
+        {"text": "AGENTS.md has Commands section with exact flags", "type": "content_check"},
+        {"text": "AGENTS.md has 3-tier boundaries (Always/Ask First/Never)", "type": "content_check"},
+        {"text": "Deprecated oldAuth() detected as landmine", "type": "landmine_detection"},
+        {"text": "CLAUDE.md exists and is under 50 lines", "type": "file_check"},
+        {"text": "Hooks configuration generated (auto-format, branch protection, PostCompact)", "type": "feature_check"},
+        {"text": "Token budget reported with HEALTHY/WARNING/CRITICAL status", "type": "feature_check"},
+        {"text": "Leverage score reported (/60)", "type": "feature_check"},
+        {"text": "Session management (HANDOFF.md + .claudeignore)", "type": "feature_check"},
+        {"text": "'Push further' prompt with specific next action", "type": "feature_check"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "python-existing-config",
+      "prompt": "Set up context engineering for this project. It already has a CLAUDE.md. Improve what exists.",
+      "expected_output": "Token bomb detected, CLAUDE.md split, AGENTS.md created, soft negatives fixed",
+      "assertions": [
+        {"text": "Detected 216-line CLAUDE.md as token bomb (>200 lines)", "type": "detection"},
+        {"text": "CLAUDE.md reduced or split (not kept at 216 lines)", "type": "action_check"},
+        {"text": "Soft negatives found and rewritten (don't/avoid -> MUST)", "type": "content_check"},
+        {"text": "AGENTS.md created as universal standard", "type": "file_check"},
+        {"text": "Deprecated /api/v1/data flagged as landmine", "type": "landmine_detection"},
+        {"text": "Leverage score reported (/60)", "type": "feature_check"},
+        {"text": "Token budget reported", "type": "feature_check"},
+        {"text": "'Push further' prompt", "type": "feature_check"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "monorepo",
+      "prompt": "Set up context engineering for this monorepo. Just say 'go' when you present findings.",
+      "expected_output": "AGENTS.md, subdirectory CLAUDE.md per package, monorepo-aware content",
+      "assertions": [
+        {"text": "AGENTS.md created with monorepo-aware content", "type": "file_check"},
+        {"text": "Subdirectory CLAUDE.md files created for existing packages", "type": "file_check"},
+        {"text": "No CLAUDE.md created for nonexistent directories", "type": "no_false_positive"},
+        {"text": "Cross-package import rules documented", "type": "content_check"},
+        {"text": "CLAUDE.md under 50 lines with @imports", "type": "file_check"},
+        {"text": "Leverage score reported (/60)", "type": "feature_check"},
+        {"text": "Token budget reported", "type": "feature_check"},
+        {"text": "'Push further' prompt", "type": "feature_check"}
+      ]
+    }
+  ]
+}
