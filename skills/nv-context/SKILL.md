@@ -9,6 +9,17 @@ user-invocable: true
 
 You are an expert context engineer. You set up the complete context engineering infrastructure for a repository so every AI coding agent — Claude Code, Cursor, Copilot, Windsurf, Aider, Gemini — works at maximum effectiveness.
 
+## Skip What's Already Done
+
+Before each phase, check if the work is already done. If yes, SKIP it and report "already at L[X]" instead of regenerating. Examples:
+- AGENTS.md exists, under 200 lines, has commands + boundaries + landmines → skip Phase 3.1
+- CLAUDE.md exists, under 50 lines, uses @imports → skip Phase 3.2
+- hooks-config.json exists with PostCompact + branch protection → skip Phase 5
+- .claudeignore exists with project-specific exclusions → skip Phase 6 deliverable 2
+- HANDOFF.md exists with proper template → skip Phase 6 deliverable 1
+
+This is the #1 efficiency gain. Re-running on a mature repo should be FAST (just analysis + scoring + push-further), not a full regeneration. Only generate what's missing or broken.
+
 ## Core Laws
 
 These are NON-NEGOTIABLE. Backed by ETH Zurich, Anthropic, Google DeepMind, Manus, and 200+ sources:
@@ -128,71 +139,22 @@ Analyze the repository using Glob, Grep, Read, and Bash. For each item, focus on
 
 ## Phase 2: Maturity & Leverage Scoring
 
-### L0-L6 Maturity Score
+### L0-L6 Maturity
 
-| Level | Name | Criteria |
-|-------|------|----------|
-| L0 | Absent | No config file |
-| L1 | Basic | File exists, may be /init boilerplate |
-| L2 | Scoped | MUST/MUST NOT with RFC 2119 language |
-| L3 | Structured | Multiple files organized by concern |
-| L4 | Abstracted | Path-scoped rules per directory |
-| L5 | Maintained | L4 + active upkeep, pruned regularly |
-| L6 | Adaptive | Skills, MCP, hooks, dynamic loading, session management |
+L0 absent → L1 boilerplate → L2 RFC 2119 language → L3 multiple files by concern → L4 path-scoped rules → L5 L4 + active upkeep → L6 skills + MCP + hooks + dynamic loading.
 
-### Hierarchy of Leverage Score
+### Hierarchy of Leverage (score each /10)
 
-Score EACH layer independently (0-10) using these concrete checklists:
+| Layer | 3 | 5 | 7 | 9 | 10 |
+|-------|---|---|---|---|----|
+| **Verification** | tests, no CI | CI runs tests | CI + coverage gate + lint | + mutation/property tests | + pre-commit enforced |
+| **CLAUDE/AGENTS quality** | boilerplate | commands + boundaries | + full flags + 3-tier + landmines | + under limits + RFC 2119 | + @imports + progressive disclosure |
+| **Hooks** | lint only | auto-format | + branch protect + pre-commit test | + PostCompact re-injection | + custom project hooks |
+| **Skills** | 1-2 generic | main workflows w/ descriptions | scoped <150 lines each | + argument hints | + eval coverage |
+| **Subagent patterns** | ad-hoc | fan-out documented | worktree isolation | + merge quality gates | + resource budgets |
+| **Session management** | HANDOFF unused | + .claudeignore | + Document-and-Clear | + compaction strategy + token budget | + automated metrics |
 
-```
-Layer                          Score  Criteria
----------------------------------------------------------------------
-Verification (tests/linters)   ?/10   0: No tests/linters
-                                      3: Tests exist but no CI
-                                      5: CI runs tests, no coverage gate
-                                      7: CI + coverage gate + lint in CI
-                                      9: CI + coverage + mutation/property tests
-                                      10: All of 9 + pre-commit hooks enforced
-
-CLAUDE.md / AGENTS.md quality  ?/10   0: No file
-                                      3: File exists, mostly boilerplate/prose
-                                      5: Has commands + some boundaries
-                                      7: Commands w/ flags + 3-tier boundaries + landmines
-                                      9: Under line limits + RFC 2119 + no soft negatives
-                                      10: All of 9 + @imports + progressive disclosure
-
-Hooks                          ?/10   0: No hooks
-                                      3: Basic pre-commit (lint only)
-                                      5: Auto-format on save/edit
-                                      7: Format + branch protection + pre-commit test
-                                      9: All of 7 + PostCompact re-injection
-                                      10: All of 9 + custom project-specific hooks
-
-Skills                         ?/10   0: No skills
-                                      3: 1-2 generic skills
-                                      5: Skills for main workflows with descriptions
-                                      7: Scoped skills under 150 lines each
-                                      9: Skills + argument hints + clear triggers
-                                      10: All of 9 + eval coverage for skills
-
-Subagent patterns              ?/10   0: No subagent usage
-                                      3: Ad-hoc subagent calls
-                                      5: Documented fan-out patterns
-                                      7: Worktree isolation + parallel execution
-                                      9: All of 7 + merge quality gates
-                                      10: All of 9 + resource budgets per agent
-
-Session management             ?/10   0: No session management
-                                      3: HANDOFF.md exists but unused
-                                      5: HANDOFF.md + .claudeignore
-                                      7: Document-and-Clear workflow documented
-                                      9: All of 7 + compaction strategy + token budget
-                                      10: All of 9 + automated session metrics
----------------------------------------------------------------------
-OVERALL LEVERAGE               ?/60
-```
-
-Report both scores. Show exactly where effort yields the biggest return.
+Total: **/60**. Report both scores. Show exactly where effort yields the biggest return.
 
 ---
 
@@ -317,34 +279,7 @@ Set up these hooks adapted to the project's actual commands from Phase 1:
 - **PreToolUse (git commit)** — run lint + test before committing
 - **SessionStart** — check if CLAUDE.md/AGENTS.md are older than 14 days. Show warning: "Agent configs may be stale — review or run /nv-context to refresh." This is the cheapest way to prevent config drift. Production-proven in selectools.
 
-**Example hooks output to present to user:**
-```json
-{
-  "hooks": {
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit",
-        "command": "<project-formatter-command>"
-      }
-    ],
-    "PreToolUse": [
-      {
-        "matcher": "git push.*main",
-        "command": "echo 'BLOCKED: use a feature branch' && exit 1"
-      }
-    ],
-    "PostCompact": [
-      {
-        "command": "head -30 CLAUDE.md"
-      }
-    ]
-  }
-}
-```
-
-Output the hooks configuration and instruct the user to apply it manually or use the `update-config` skill. Agents cannot write to `.claude/` directly.
-
-**Batch mode persistence:** In batch mode, write the hooks config to a file `hooks-config.json` in the project root so it persists after the session ends. Include a note: "Run `mkdir -p .claude && cp hooks-config.json .claude/settings.local.json` to activate hooks."
+**Output:** Generate a `hooks-config.json` file in the project root with all 5 hooks (PostToolUse format, PreToolUse push-main block, PreToolUse commit lint, PostCompact head -30 CLAUDE.md, SessionStart staleness check). Tell the user: "Run `mkdir -p .claude && cp hooks-config.json .claude/settings.local.json` to activate, or use the `update-config` skill."
 
 ---
 
